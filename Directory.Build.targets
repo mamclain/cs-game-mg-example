@@ -1,4 +1,5 @@
 ﻿<Project>
+   
     <Target Name="EnsureNuGetRestore" BeforeTargets="BeforeBuild">
         <!-- Only run restore if the assets file is missing -->
         <PropertyGroup>
@@ -18,5 +19,22 @@
         <Message Text="🛠 Checking for mgcb tool in: $(DotnetToolPath)" Importance="High" />
         <Exec Condition="!Exists('$(DotnetToolPath)')" Command="dotnet tool restore" />
     </Target>
+
+    <Target Name="BuildCustomMGCB" BeforeTargets="Build" Condition="Exists('$(ProjectDir)Content\Content.mgcb')">
+        <Message Text="🛠 Building MGCB content for $(MSBuildProjectName)..." Importance="High" />
+        <Exec Command='dotnet mgcb /@:"$(ProjectDir)Content\Content.mgcb" /outputDir:"$(BaseOutputPath)Content\bin\$(MonoGamePlatform)\$(MSBuildProjectName)" /intermediateDir:"$(BaseOutputPath)Content\obj\$(MonoGamePlatform)\$(MSBuildProjectName)" /workingDir:"$(ProjectDir)Content"' />
+    </Target>
+
+    <Target Name="CopyBuiltContent" AfterTargets="BuildCustomMGCB" Condition="Exists('$(ProjectDir)Content\Content.mgcb')">
+        <Message Text="📦 Copying MGCB content for $(MSBuildProjectName)..." Importance="High" />
+        <ItemGroup>
+            <BuiltContentFiles Include="$(BaseOutputPath)Content\bin\$(MonoGamePlatform)\$(MSBuildProjectName)\**\*.*" />
+        </ItemGroup>
+        <Copy
+                SourceFiles="@(BuiltContentFiles)"
+                DestinationFolder="$(OutputPath)Content\$(MSBuildProjectName)\%(RecursiveDir)"
+                SkipUnchangedFiles="true" />
+    </Target>
+    
 
 </Project>

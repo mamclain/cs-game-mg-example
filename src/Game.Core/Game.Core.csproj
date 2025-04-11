@@ -15,12 +15,12 @@
 
     <ItemGroup>
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*"/>
-<!--        <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*"/>-->
+        <!--<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*"/>-->
     </ItemGroup>
+    
 
-    <Target Name="BuildCustomCoreMGCB" BeforeTargets="Build">
-        <Message Text="🛠 Building Custom Core MGCB content..." Importance="High" />
-        <Exec Command='dotnet mgcb /@:"$(ProjectDir)Content\Content.mgcb" /outputDir:"$(BaseOutputPath)Content\$(MSBuildProjectName)\bin\$(MonoGamePlatform)" /intermediateDir:"$(BaseOutputPath)Content\$(MSBuildProjectName)\obj\$(MonoGamePlatform)" /workingDir:"$(ProjectDir)Content"' />
-    </Target>
+    <ItemGroup>
+      <Folder Include="Content\logo\" />
+    </ItemGroup>
     
 </Project>
