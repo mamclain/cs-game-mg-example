@@ -9,13 +9,15 @@ public class GameCore : Microsoft.Xna.Framework.Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    private Texture2D _logoTexture;
+    
     /// <summary>
     /// Represents the main class for the game that inherits from the Microsoft.Xna.Framework.Game class.
     /// Manages the game lifecycle including initialization, content loading, updating, and drawing.
     /// </summary>
     public GameCore()
     {
-        _graphics = new GraphicsDeviceManager(this);
+        _graphics = new GraphicsDeviceManager(game:this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -33,9 +35,11 @@ public class GameCore : Microsoft.Xna.Framework.Game
     /// </summary>
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _spriteBatch = new SpriteBatch(graphicsDevice:GraphicsDevice);
 
+        
         // TODO: use this.Content to load your game content here
+        _logoTexture = Content.Load<Texture2D>(assetName:"Game.Core/Logo/elf");
     }
 
     /// <summary>
@@ -46,21 +50,43 @@ public class GameCore : Microsoft.Xna.Framework.Game
     /// game time.</param>
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (
+            GamePad.GetState(playerIndex: PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+            Keyboard.GetState().IsKeyDown(key: Keys.Escape)
+        )
+        {
             Exit();
+        }
 
         // TODO: Add your update logic here
 
-        base.Update(gameTime);
+        base.Update(gameTime:gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(color:Color.CornflowerBlue);
 
-        // TODO: Add your drawing code here
+        _spriteBatch.Begin();
+        
+        _spriteBatch.Draw(
+            texture: _logoTexture,
+            position: new Vector2(x:100, y:0),
+            sourceRectangle: null,
+            color: Color.White,
+            rotation: 0f,
+            origin: Vector2.Zero,
+            scale: TextureUtilities.CalculateScaleFactor(
+                texture: _logoTexture,
+                desiredWidth: 400,
+                desiredHeight: 400
+                ),
+            effects: SpriteEffects.None,
+            layerDepth: 0f
+            );
 
-        base.Draw(gameTime);
+        _spriteBatch.End();
+
+        base.Draw(gameTime:gameTime);
     }
 }
