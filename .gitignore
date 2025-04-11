@@ -7,3 +7,4 @@ riderModule.iml
 **/.idea
 **/builds
 *.sln.DotSettings.user
+**/.mgstats
