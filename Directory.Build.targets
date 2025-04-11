@@ -1,0 +1,22 @@
+﻿<Project>
+    <Target Name="EnsureNuGetRestore" BeforeTargets="BeforeBuild">
+        <!-- Only run restore if the assets file is missing -->
+        <PropertyGroup>
+            <AssetsFile>$(BaseIntermediateOutputPath)project.assets.json</AssetsFile>
+        </PropertyGroup>
+
+        <Message Text="🔍 Checking for NuGet restore..." Importance="Low" />
+        <Exec Command="dotnet restore &quot;$(MSBuildProjectFullPath)&quot;"
+              Condition="!Exists('$(AssetsFile)')" />
+    </Target>
+    
+    <Target Name="EnsureLocalToolsRestored" BeforeTargets="BeforeBuild">
+        <PropertyGroup>
+            <DotnetToolPath>$(UserProfile)\.dotnet\tools\.store\dotnet-mgcb</DotnetToolPath>
+        </PropertyGroup>
+        <Message Text="🔍 Current MSBuild Project Dir: $(MSBuildProjectDirectory)" Importance="High" />
+        <Message Text="🛠 Checking for mgcb tool in: $(DotnetToolPath)" Importance="High" />
+        <Exec Condition="!Exists('$(DotnetToolPath)')" Command="dotnet tool restore" />
+    </Target>
+
+</Project>

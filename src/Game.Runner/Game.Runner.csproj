@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <RollForward>Major</RollForward>
+        <PublishReadyToRun>false</PublishReadyToRun>
+        <TieredCompilation>false</TieredCompilation>
+        <Win32Manifest>assets/app.manifest</Win32Manifest>
+        <Win32Icon>assets/icon.ico</Win32Icon>
+
+        <MonoGamePlatform>DesktopGL</MonoGamePlatform>
+<!--        <MonoGameContentBuilderPlatform>$(MonoGamePlatform)</MonoGameContentBuilderPlatform>-->
+<!--        <BuildMonoGameContent>false</BuildMonoGameContent>-->
+        
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="assets/Icon.ico"/>
+        <None Remove="assets/app.manifest" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Include="assets/Icon.ico">
+            <LogicalName>Icon.ico</LogicalName>
+        </EmbeddedResource>
+    </ItemGroup>
+
+<!--    <ItemGroup>-->
+<!--        <MonoGameContentReference Include="Content/Content.mgcb" />-->
+<!--    </ItemGroup>-->
+
+    <Target Name="BuildCustomMGCB" BeforeTargets="BeforeBuild">
+        <Message Text="🛠 Building MGCB content..." Importance="High" />
+        <Exec Command='dotnet mgcb /@:"$(ProjectDir)Content\Content.mgcb" /outputDir:"$(SolutionDir)builds\Content\bin\$(MonoGamePlatform)" /intermediateDir:"$(SolutionDir)builds\Content\obj\$(MonoGamePlatform)" /workingDir:"$(ProjectDir)Content"' />
+    </Target>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Game.Core\Game.Core.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*"/>
+<!--        <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*"/>-->
+    </ItemGroup>
+    
+    <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
+        <Message Text="Restoring dotnet tools" Importance="High"/>
+        <Exec Command="dotnet tool restore"/>
+    </Target>
+</Project>
