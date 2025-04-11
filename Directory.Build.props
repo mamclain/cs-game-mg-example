@@ -2,6 +2,8 @@
     <PropertyGroup>
         <BaseOutputPath>$(SolutionDir)builds\</BaseOutputPath>
         <BaseIntermediateOutputPath>$(SolutionDir)builds\obj\</BaseIntermediateOutputPath>
+        <MonoGamePlatform>DesktopGL</MonoGamePlatform>
+
     </PropertyGroup>
 
 </Project>

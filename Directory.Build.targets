@@ -5,12 +5,12 @@
             <AssetsFile>$(BaseIntermediateOutputPath)project.assets.json</AssetsFile>
         </PropertyGroup>
 
-        <Message Text="🔍 Checking for NuGet restore..." Importance="Low" />
-        <Exec Command="dotnet restore &quot;$(MSBuildProjectFullPath)&quot;"
+        <Message Text="🔍 Checking for NuGet restore..." Importance="High" />
+        <Exec Command="dotnet restore &quot;$(MSBuildProjectFullPath)&quot; -p:BaseIntermediateOutputPath=$(SolutionDir)builds\obj\"
               Condition="!Exists('$(AssetsFile)')" />
     </Target>
     
-    <Target Name="EnsureLocalToolsRestored" BeforeTargets="BeforeBuild">
+    <Target Name="EnsureLocalToolsRestored" AfterTargets="EnsureNuGetRestore" BeforeTargets="BeforeBuild">
         <PropertyGroup>
             <DotnetToolPath>$(UserProfile)\.dotnet\tools\.store\dotnet-mgcb</DotnetToolPath>
         </PropertyGroup>
