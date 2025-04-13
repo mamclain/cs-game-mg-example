@@ -4,6 +4,8 @@
         <OutputType>Library</OutputType>
         <UseMonoGame>true</UseMonoGame>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AssemblyName>Core</AssemblyName>
+        <RootNamespace>Game.Core</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,16 +13,16 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-    
+
 
     <ItemGroup>
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*"/>
         <!--<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*"/>-->
     </ItemGroup>
-    
+
 
     <ItemGroup>
-      <Folder Include="Content\logo\" />
+        <Folder Include="Content\logo\"/>
     </ItemGroup>
-    
+
 </Project>

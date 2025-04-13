@@ -4,13 +4,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Game.Core;
 
+
 public class GameCore : Microsoft.Xna.Framework.Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private Texture2D _logoTexture;
-    
+
     /// <summary>
     /// Represents the main class for the game that inherits from the Microsoft.Xna.Framework.Game class.
     /// Manages the game lifecycle including initialization, content loading, updating, and drawing.
@@ -37,7 +38,7 @@ public class GameCore : Microsoft.Xna.Framework.Game
     {
         _spriteBatch = new SpriteBatch(graphicsDevice:GraphicsDevice);
 
-        
+
         // TODO: use this.Content to load your game content here
         _logoTexture = Content.Load<Texture2D>(assetName:"Game.Core/Logo/elf");
     }
@@ -68,7 +69,7 @@ public class GameCore : Microsoft.Xna.Framework.Game
         GraphicsDevice.Clear(color:Color.CornflowerBlue);
 
         _spriteBatch.Begin();
-        
+
         _spriteBatch.Draw(
             texture: _logoTexture,
             position: new Vector2(x:100, y:0),
@@ -83,6 +84,7 @@ public class GameCore : Microsoft.Xna.Framework.Game
                 ),
             effects: SpriteEffects.None,
             layerDepth: 0f
+
             );
 
         _spriteBatch.End();
