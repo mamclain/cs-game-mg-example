@@ -17,8 +17,8 @@ public static class TextureUtilities
     /// <returns>A <see cref="Vector2" /> representing the scale factors for the X and Y dimensions.</returns>
     public static Vector2 CalculateScaleFactor(Texture2D texture, float desiredWidth, float desiredHeight)
     {
-        var scaleX = desiredWidth / texture.Width;
-        var scaleY = desiredHeight / texture.Height;
+        float scaleX = desiredWidth / texture.Width;
+        float scaleY = desiredHeight / texture.Height;
         return new Vector2(scaleX, scaleY);
     }
 }

@@ -8,3 +8,4 @@ riderModule.iml
 **/builds
 *.sln.DotSettings.user
 **/.mgstats
+.vs

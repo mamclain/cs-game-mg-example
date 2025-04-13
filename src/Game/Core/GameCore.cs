@@ -40,7 +40,7 @@ public class GameCore : Microsoft.Xna.Framework.Game
 
 
         // TODO: use this.Content to load your game content here
-        _logoTexture = Content.Load<Texture2D>(assetName:"Game.Core/Logo/elf");
+        _logoTexture = Content.Load<Texture2D>(assetName:"Core/Logo/elf");
     }
 
     /// <summary>
